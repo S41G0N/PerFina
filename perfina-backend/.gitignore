@@ -1,0 +1,10 @@
+# SQLite database files
+**/db.sqlite3
+**/db.sqlite3-shm
+**/db.sqlite3-wal
+
+# Ignore all __pycache__ directories
+**/__pycache__/
+
+# Ignore all .pyc files
+**/*.pyc
