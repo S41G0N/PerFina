@@ -28,3 +28,11 @@ coverage
 *.sw?
 
 *.tsbuildinfo
+
+# Personal config files
+.eslintrc.js
+.eslintrc.cjs
+.eslintrc.json
+.prettierrc
+.prettierrc.js
+.prettierrc.json
