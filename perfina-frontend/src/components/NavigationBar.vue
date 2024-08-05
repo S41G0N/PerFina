@@ -28,7 +28,7 @@
         <div class="hidden md:block">
           <div class="ml-4 flex items-center md:ml-6">
             <router-link
-              :to="{ name: 'Home' }"
+              :to="{ name: 'SignIn' }"
               class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out"
               >Sign In</router-link
             >
@@ -91,7 +91,7 @@
           >Dashboard</router-link
         >
         <router-link
-          :to="{ name: 'Home' }"
+          :to="{ name: 'SignIn' }"
           class="bg-indigo-500 text-white block px-3 py-2 rounded-md text-base font-medium"
           >Sign In</router-link
         >
