@@ -10,7 +10,7 @@ TORTOISE_ORM = {
     "connections": {"default": f"sqlite://{DB_PATH}"},
     "apps": {
         "models": {
-            "models": ["models.transaction"],
+            "models": ["models.transaction","models.user"],
             "default_connection": "default",
         },
     },
