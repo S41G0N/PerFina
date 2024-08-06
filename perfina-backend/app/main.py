@@ -4,8 +4,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from tortoise.contrib.fastapi import register_tortoise
-from db.config import TORTOISE_ORM
-from api.routes import transactions, auth
+from config import TORTOISE_ORM
+from api.routes import transactions_endpoints, authentication_endpoints
 
 
 app = FastAPI()
@@ -37,5 +37,5 @@ def read_item(item_id: int, q: Union[str, None] = None):
     return {"item_id": item_id, "q": q}
 
 
-app.include_router(transactions.router)
-app.include_router(auth.router)
+app.include_router(transactions_endpoints.router)
+app.include_router(authentication_endpoints.router)

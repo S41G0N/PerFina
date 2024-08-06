@@ -1,13 +1,13 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
-from services.auth import (
+from services.authentication_service import (
     authenticate_user,
     create_access_token,
     get_current_user,
     get_password_hash,
 )
-from schemas.user import Token, UserCreate, UserPydantic
-from models.user import User
+from schemas.user_schema import Token, UserCreate, UserPydantic
+from models.user_model import User
 from datetime import timedelta
 
 from config import ACCESS_TOKEN_EXPIRE_MINUTES

@@ -1,7 +1,7 @@
 #api/routes/transactions.py
 from fastapi import APIRouter, HTTPException
-from models.transaction import Transaction, Category
-from schemas.transaction import TransactionCreate, TransactionResponse
+from models.transaction_model import Transaction, Category
+from schemas.transaction_schema import TransactionCreate, TransactionResponse
 from tortoise.contrib.pydantic import pydantic_model_creator
 
 router = APIRouter()

@@ -1,4 +1,4 @@
-#models/transaction.py
+#models/transaction_model.py
 from tortoise import fields, models
 
 

@@ -17,3 +17,17 @@ if not SECRET_KEY:
 # Add any other configuration variables you need
 DATABASE_URL = os.getenv("DATABASE_URL")
 DEBUG = os.getenv("DEBUG", "False").lower() in ("true", "1", "t")
+
+# Construct the path to the SQLite database file
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_PATH = os.path.join(BASE_DIR, str(os.getenv("DB")))
+
+TORTOISE_ORM = {
+    "connections": {"default": f"sqlite://{DB_PATH}"},
+    "apps": {
+        "models": {
+            "models": ["models.transaction_model","models.user_model"],
+            "default_connection": "default",
+        },
+    },
+}

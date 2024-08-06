@@ -1,4 +1,4 @@
-# schemas/transaction.py
+# schemas/transaction_schema.py
 from pydantic import BaseModel
 
 
