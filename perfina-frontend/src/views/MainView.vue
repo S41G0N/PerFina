@@ -25,7 +25,7 @@ async function fetchData() {
   loading.value = true
   error.value = null
   try {
-    const response = await api.get('/transactions/5')
+    const response = await api.get('/transactions/1')
     data.value = response.data
     console.log(data.value)
   } catch (err) {

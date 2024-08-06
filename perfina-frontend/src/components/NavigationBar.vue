@@ -27,11 +27,20 @@
         </div>
         <div class="hidden md:block">
           <div class="ml-4 flex items-center md:ml-6">
+            <button
+              v-if="userStore.isLoggedIn"
+              @click="logOut"
+              class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out"
+            >
+              Log Out
+            </button>
             <router-link
+              v-else
               :to="{ name: 'SignIn' }"
               class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out"
-              >Sign In</router-link
             >
+              Sign In
+            </router-link>
           </div>
         </div>
         <div class="-mr-2 flex md:hidden">
@@ -101,6 +110,19 @@
 </template>
 
 <script lang="js" setup>
+import { useUserStore } from '@/stores/user_store'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
 const isOpen = ref(false)
+const router = useRouter()
+
+const userStore = useUserStore()
+userStore.checkUserStatus()
+
+const logOut = () => {
+  // Remove the token and update the store
+  userStore.logout()
+  router.push({ name: 'Home' })
+}
 </script>
