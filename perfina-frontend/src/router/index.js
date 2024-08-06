@@ -15,6 +15,7 @@ const router = createRouter({
       path: '/dashboard',
       name: 'Dashboard',
       component: DashboardView,
+      meta: { requiresAuth: true },
     },
     {
       path: '/signin',
@@ -22,6 +23,20 @@ const router = createRouter({
       component: SignIn,
     },
   ],
+})
+
+// Prevents users without Auth Tokens to access protected routes
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    const token = localStorage.getItem('token')
+    if (!token) {
+      next({ name: 'SignIn' })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
 })
 
 export default router

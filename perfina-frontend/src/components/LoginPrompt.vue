@@ -35,18 +35,52 @@
       <div class="mt-4 text-center">
         <a href="#" class="text-sm text-indigo-600 hover:text-indigo-500">Forgot your password?</a>
       </div>
+
+      <div class="mt-4 text-center">
+        <a href="#" class="text-sm text-indigo-600 hover:text-indigo-500"
+          >No Account? Register here!</a
+        >
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import { useApi } from '@/api/api'
+import { useRouter } from 'vue-router'
 
 const email = ref('')
 const password = ref('')
+const error = ref('')
+const api = useApi()
+const router = useRouter()
 
-const handleSubmit = () => {
-  // Handle login logic here
-  console.log('Login submitted', { email: email.value, password: password.value })
+const handleSubmit = async () => {
+  try {
+    const response = await api.post(
+      '/token',
+      new URLSearchParams({
+        username: email.value, // Your backend expects 'username', but the form uses 'email'
+        password: password.value,
+      }),
+      {
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      }
+    )
+
+    const token = response.data.access_token
+    localStorage.setItem('token', token)
+
+    // Clear the form
+    email.value = ''
+    password.value = ''
+
+    // Redirect to a protected route (e.g., dashboard)
+    router.push({ name: 'Dashboard' })
+  } catch (err) {
+    error.value = 'Login failed. Please check your credentials.'
+    console.error(err)
+  }
 }
 </script>
