@@ -18,5 +18,6 @@ export function useApi() {
   return {
     register: (url, credentials, options) => api.post(url, credentials, options),
     login: (url, credentials, options) => api.post(url, credentials, options),
+    createInvoice: (url, data, options) => api.post(url, data, options),
   }
 }

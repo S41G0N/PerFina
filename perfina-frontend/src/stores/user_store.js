@@ -18,6 +18,7 @@ export const useUserStore = defineStore('user', {
       this.isRegistered = !!token
       console.log(`User status checked. Is registered: ${this.isRegistered}`)
     },
+
     async logout() {
       try {
         localStorage.removeItem('token')
@@ -28,6 +29,7 @@ export const useUserStore = defineStore('user', {
         console.error('Error during logout:', error)
       }
     },
+
     async login(credentials) {
       const api = useApi()
       const params = new URLSearchParams()
@@ -52,20 +54,14 @@ export const useUserStore = defineStore('user', {
         throw error
       }
     },
+
     async register(credentials) {
       const api = useApi()
       try {
         console.log('Attempting registration...')
-        const response = await api.register(
-          '/register',
-          JSON.stringify({
-            username: credentials.username,
-            password: credentials.password,
-          }),
-          {
-            headers: { 'Content-Type': 'application/json' },
-          }
-        )
+        const response = await api.register('/register', JSON.stringify(credentials), {
+          headers: { 'Content-Type': 'application/json' },
+        })
         if (response.status === 200 || response.status === 201) {
           console.log('Registration successful, attempting login...')
           await this.login(credentials)
@@ -78,6 +74,29 @@ export const useUserStore = defineStore('user', {
         throw error
       }
     },
+
+    async generateInvoice(invoice_data) {
+      const token = localStorage.getItem('token')
+      const api = useApi()
+      console.log('Generate an invoice')
+      try {
+        const response = await api.createInvoice('/generate-invoice', invoice_data, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          responseType: 'blob',
+        })
+
+        if (response.status !== 200) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+
+        return response
+      } catch (error) {
+        console.error('Error in generateInvoice:', error)
+        throw error
+      }
+    },
   },
 })
-
